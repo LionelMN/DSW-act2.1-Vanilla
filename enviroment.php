@@ -1,7 +1,7 @@
 <?php
     $host = 'localhost';
-    $database = 'campus';
-    $user = 'lioneldsw';
+    $database = 'ac21';
+    $user = 'lionelDSW';
     $password = 'DSW';
     $gestor = 'mysql';
     $dsn = "$gestor:host=$host;dbname=$database";
