@@ -1,12 +1,12 @@
 body{
     padding: 0;
     margin: 0;
+    background-color: #777777;
 }
 
 main{
     text-align: center;
-    background-color: #777777;
-    padding: 1rem;
+    min-height: 100vh;
 }
 
 main h1{
@@ -16,7 +16,7 @@ main h1{
 .products__table{
     overflow: hidden;
     width: 80%;
-    margin: 0 auto;
+    margin: 1rem auto;
     border: 1px solid;
     border-radius: 25px;
 }
@@ -58,4 +58,40 @@ main h1{
 
 .detailsButton{
     background-color: cyan;
+}
+
+.product__card{
+    width: 80%;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-radius: 25px;
+    overflow: hidden;
+    background-color: #222222;
+    color: white;
+}
+
+.card__header{
+    background-color: black;
+}
+
+.card__body {
+    padding: .5rem;
+    text-align: start;
+}
+
+.card__body span{
+    font-weight: bolder;
+}
+
+.card__footer {
+    padding: 1rem;
+}
+
+.card__footer a{
+    background: cyan;
+    border: 1px solid cyan;
+    border-radius: 15px;
+    padding: .5rem;
+    color: white;
+    text-decoration: none;
 }
