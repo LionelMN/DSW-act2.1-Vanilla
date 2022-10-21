@@ -95,3 +95,12 @@ main h1{
     color: white;
     text-decoration: none;
 }
+
+.error{
+    visibility: hidden;
+    color: red;
+}
+
+.showedError{
+    visibility: visible;
+}
