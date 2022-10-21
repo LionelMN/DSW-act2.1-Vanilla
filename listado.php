@@ -10,6 +10,7 @@
 <body>
     <main>
         <h1>Gestión de productos</h1>
+        <a href="crear.php">Añadir producto</a>
         <div class="products__table">
             <div class="products__table__header products__table__row">
                 <div>Detalles</div>
