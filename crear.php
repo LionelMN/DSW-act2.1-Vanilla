@@ -23,27 +23,39 @@
 
             print_r("
                 <fieldset>
-                <legend>Datos del producto</legend>
-                    <div class='error' id='nameError'>
-                        El nombre no puede estar vacío.
-                    </div>
-                    <label for='productName'>Nombre del producto</label>
-                    <input type='text' name='productName' id='productName' placeholder='Nombre del producto' value='$nombre'>
-                    <div class='error' id='shortNameError'>
-                        El nombre corto no puede estar vacío.
-                    </div>
-                    <label for='shortName'>Nombre corto del producto</label>
-                    <input type='text' name='shortName' id='shortName' placeholder='Nombre corto del producto' value='$nombreCorto'>
-                    <div class='error' id='prizeError'>
-                        El precio no puede estar vacío o ser 0.
-                    </div>
-                    <label for='prize'>Precio €</label>
-                    <input type='number' name='prize' id='prize' placeholder='000.00' value='$precio'>
-                    <div class='error' id='familyError'>
-                        La familia introducida no es válida
-                    </div>
-                    <label for='familyProduct'>Familia del producto</label>
-                    <select name='familyProduct' id='familyProduct'>
+                <legend><h2>Datos del producto</h2></legend>
+
+                    <div class='inputs'>
+
+                        <div>
+                            <label for='productName'>Nombre del producto</label>
+                            <input type='text' name='productName' id='productName' placeholder='Nombre del producto' value='$nombre'>
+                            <div class='error' id='nameError'>
+                                <p>El nombre no puede estar vacío.</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for='shortName'>Nombre corto del producto</label>
+                            <input type='text' name='shortName' id='shortName' placeholder='Nombre corto del producto' value='$nombreCorto'>
+                            <div class='error' id='shortNameError'>
+                                <p>El nombre corto no puede estar vacío.</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for='prize'>Precio en €</label>
+                            <input type='number' name='prize' id='prize' placeholder='000.00' value='$precio'>
+                            <div class='error' id='prizeError'>
+                                <p>El precio no puede estar vacío o ser 0.</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for='familyProduct'>Familia del producto</label>
+                            <select name='familyProduct' id='familyProduct'>
+
+
             ");
             $result = $GLOBALS['conecction']->query('SELECT * FROM familias');
             while($family = $result->fetch(PDO::FETCH_OBJ)){
@@ -58,13 +70,20 @@
                 }
             }
             print_r("
-                    </select>
-                    <div class='error' id='descriptionError'>
-                        La descripción no puede estar vacío.
+                            </select>
+                            <div class='error' id='familyError'>
+                                <p>La familia introducida no es válida.</p>
+                            </div>
+                        </div>
                     </div>
+
                     <label for='description'>Descripción</label>
                     <textarea name='description' id='description' cols='30' rows='10' placeholder='Descripción'>$descripcion</textarea>
+                    <div class='error' id='descriptionError'>
+                        <p>La descripción no puede estar vacío.</p>
+                    </div>
                     <input type='submit' value='Enviar' id='submitButton'>
+                    <a href='listado.php' class='button returnButton'>Volver al listado</a>
                 </fieldset>
             </form>
             ");
