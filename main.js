@@ -31,12 +31,18 @@ function validation(){
         document.getElementById('prizeError').classList.add('showedError')
     }
 
+    if(familyProduct == ""){
+        errors = true;
+        document.getElementById('familyError').classList.add('showedError')
+    } else{
+        let familias = ['CAMARA', 'CONSOL', 'EBOOK', 'IMPRES', 'MEMFLA', 'MP3', 'MULTIF', 'NETBOK', 'ORDENA', 'PORTAT', 'ROUTER', 'SAI', 'SOFTWA', 'TV', 'VIDEOC'];
+        familias.includes(familyProduct) ? '' : errors = true;
+    }
+
     if(description == ""){
         errors = true;
         document.getElementById('descriptionError').classList.add('showedError')
     }
-
-    console.log(name,shortName,prize,familyProduct,description);
 
     if(errors){
         event.preventDefault();

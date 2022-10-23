@@ -6,5 +6,9 @@
     $gestor = 'mysql';
     $dsn = "$gestor:host=$host;dbname=$database";
 
-    $conecction = new PDO($dsn, $user, $password);
+    try {
+        $conecction = new PDO($dsn, $user, $password);
+    }catch(PDOException $e){
+        echo "ERROR: " . $e->getMessage();
+    }
 ?>

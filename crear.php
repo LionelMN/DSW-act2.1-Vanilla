@@ -39,7 +39,9 @@
                     </div>
                     <label for='prize'>Precio €</label>
                     <input type='number' name='prize' id='prize' placeholder='000.00' value='$precio'>
-                    <div class='error' id='familyError'></div>
+                    <div class='error' id='familyError'>
+                        La familia introducida no es válida
+                    </div>
                     <label for='familyProduct'>Familia del producto</label>
                     <select name='familyProduct' id='familyProduct'>
             ");
@@ -77,68 +79,95 @@
             $product = $result->fetch(PDO::FETCH_OBJ);
             printForm($product->nombre,$product->nombre_corto,$product->pvp,$product->familia,$product->descripcion);
         }
-        if ($_POST != "") {
-            print_r($_POST);
-            $nombre = $_POST['productName'];
-            $nombre_corto = $_POST['shortName'];
-            $prize = $_POST['prize'];
-            $familia = $_POST['familyProduct'];
-            $descripcion = $_POST['description'];
+        if ($_POST) {
+            $form = processForm();
             if(isset($_GET['update'])){
-                echo("update");
-                $id = $_GET['id'];
-                echo $id;
-                $result = $conecction->prepare(
+                updateProduct($form);
+            } else{
+                insertProduct($form);
+            }
+        }
+
+        function processForm(){
+            $formArray = [];
+            $errors = false;
+            $msgError = "";
+            foreach ($_POST as $key => $value) {
+                if($value != ""){
+                    $formArray[$key] = $value;
+                } else{
+                    $errors = true;
+                    $msgError = "El campo $key está vacío \n";
+                }
+            }
+            if($errors){
+                return false;
+            } else{
+                return $formArray;
+            }
+        }
+
+        function updateProduct($form){
+            $id = $_GET['id'];
+            try {
+                $result = $GLOBALS['conecction']->prepare(
                     "UPDATE productos
                     SET
-                    nombre=:nombre,
-                    nombre_corto=:nombre_corto,
-                    pvp=:prize,
-                    familia=:familia,
-                    descripcion=:descripcion,
+                        nombre=:nombre,
+                        nombre_corto=:nombre_corto,
+                        pvp=:prize,
+                        familia=:familia,
+                        descripcion=:descripcion
                     WHERE id=:id");
                 $data = array(
-                    "nombre"=>$nombre,
-                    "nombre_corto"=>$nombre_corto,
-                    "prize"=>$prize,
-                    "familia"=>$familia,
-                    "descripcion"=>$descripcion,
+                    "nombre"=>$form['productName'],
+                    "nombre_corto"=>$form['shortName'],
+                    "prize"=>$form['prize'],
+                    "familia"=>$form['familyProduct'],
+                    "descripcion"=>$form['description'],
                     "id"=>$id
                 );
                 print_r($data);
-                if( $result->execute(array(
-                    "nombre"=>$nombre,
-                    "nombre_corto"=>$nombre_corto,
-                    "prize"=>$prize,
-                    "familia"=>$familia,
-                    "descripcion"=>$descripcion,
-                    "id"=>$id
-                )) )
+                if( $result->execute($data) )
                     header("Location: listado.php");
                 else
-                    echo "Error: el producto no ha podido actualizarse correctamente";
-            } else{
-                echo("insert");
-                $result = $conecction->prepare(
-                    "INSERT INTO productos (nombre, nombre_corto, pvp, familia, descripcion)
+                    print_r("<div class='error showedError'>Error: el producto no ha podido actualizarse correctamente</div>");
+            } catch(PDOException $e){
+                echo "ERROR: " . $e->getMessage();
+            }
+        }
+
+        function insertProduct($form){
+            try{
+                $result = $GLOBALS['conecction']->prepare(
+                    "INSERT INTO productos (
+                        nombre,
+                        nombre_corto,
+                        pvp,
+                        familia,
+                        descripcion
+                    )
                     VALUES (
                         :nombre,
                         :nombre_corto,
                         :prize,
                         :familia,
                         :descripcion
-                        )");
-                    $data = array(
-                        "nombre"=>$nombre,
-                        "nombre_corto"=>$nombre_corto,
-                        "prize"=>$prize,
-                        "familia"=>$familia,
-                        "descripcion"=>$descripcion
-                    );
+                    )
+                ");
+                $data = array(
+                    "nombre"=>$form['productName'],
+                    "nombre_corto"=>$form['shortName'],
+                    "prize"=>$form['prize'],
+                    "familia"=>$form['familyProduct'],
+                    "descripcion"=>$form['description'],
+                );
                 if( $result->execute($data) )
                     header("Location: listado.php");
                 else
-                    echo "Error: el producto no ha podido insertarse correctamente";
+                    print_r("<div class='error showedError'>Error: el producto no ha podido insertarse correctamente</div>");
+            } catch(PDOException $e){
+                echo "ERROR: " . $e->getMessage();
             }
         }
     ?>
