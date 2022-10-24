@@ -1,7 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif&family=Ultra&display=swap');
+
+:root{
+    --main-bg-color: #1B1B2F;
+    --second-bg-color: #162447;
+    --third-bg-color: #1F4068;
+    --delete-color: #FA7070;
+    --update-bg-color: #FBF2CF;
+    --create-bg-color: #A1C298;
+    --detail-bg-color: #C6EBC5;
+}
+
 body{
     padding: 0;
     margin: 0;
-    background-color: #777777;
+    background-color: var(--main-bg-color);
+    font-family: 'PT Serif', serif;
 }
 
 main{
@@ -11,6 +24,10 @@ main{
 
 main h1{
     margin-top: 0;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Ultra', serif;
 }
 
 .products__table{
@@ -28,11 +45,11 @@ main h1{
     align-items: baseline;
     padding: .5rem 0;
     color: white;
-    background-color: black;
+    background-color: var(--second-bg-color);
 }
 
-.products__table__row:nth-of-type(odd){
-    background-color: #222222;
+.products__table__row:nth-of-type(even){
+    background-color: var(--third-bg-color);
 }
 
 .products__table__row .products__table__col:last-child{
@@ -40,24 +57,36 @@ main h1{
     justify-content: space-around;
 }
 
-.products__table__row .products__table__col a{
+.products__table__header{
+    font-family: 'Ultra', serif;
+}
+
+a.button{
     border: 1px solid black;
     border-radius: 5px;
     padding: .2rem .4rem;
     text-decoration: none;
-    color: white;
+    color: black;
 }
 
 .deleteButton{
-    background-color: red;
+    background-color: var(--delete-color);
 }
 
 .updateButton{
-    background-color: blue;
+    background-color: var(--update-bg-color);
 }
 
 .detailsButton{
-    background-color: cyan;
+    background-color: var(--detail-bg-color);
+}
+
+.createButton{
+    background-color: var(--create-bg-color);
+}
+
+.returnButton{
+    background-color: var(--detail-bg-color);
 }
 
 .product__card{
@@ -94,6 +123,33 @@ main h1{
     padding: .5rem;
     color: white;
     text-decoration: none;
+}
+
+fieldset{
+    color: white;
+    width: 80%;
+    margin: 0 auto;
+    background-color: var(--second-bg-color);
+}
+
+fieldset div.inputs{
+    display: grid;
+    grid-template: 50% 50% / 50% 50%;
+}
+
+input#submitButton{
+    background: var(--create-bg-color);
+    border: none;
+    border-radius: 5px;
+    padding: .3rem .5rem;
+}
+
+input#submitButton:hover{
+    background: #7f9977;
+}
+
+label{
+    display: block;
 }
 
 .error{
