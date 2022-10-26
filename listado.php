@@ -24,10 +24,14 @@
                 while($products = $result->fetch(PDO::FETCH_OBJ)){
                     print_r("
                     <div class='products__table__row'>
-                    <div class='products__table__col'> <a class='button detailsButton' href='detalles.php?id=$products->id'> Detalles </a> </div>
-                    <div class='products__table__col'>$products->id </div>
-                    <div class='products__table__col'>$products->nombre </div>
-                        <div class='products__table__col'> <a class='button deleteButton' href='borrar.php?id=$products->id'> Borrar </a>  <a class='button updateButton' href='crear.php?id=$products->id&update=true'> Actualizar </a> </div>
+                        <div class='products__table__col'> <a class='button detailsButton' href='detalles.php?id=$products->id'> Detalles </a> </div>
+                        <div class='products__table__col'>$products->id </div>
+                        <div class='products__table__col'>$products->nombre </div>
+                        <div class='products__table__col'>
+                            <a class='button deleteButton' href='borrar.php?id=$products->id'> Borrar </a>
+                            <a class='button updateButton' href='crear.php?id=$products->id&update=true'> Actualizar </a>
+                            <a class='button updateButton' href='mueveStock.php?id=$products->id&update=true'> Mover stock </a>
+                        </div>
                     </div>");
                 }
             ?>
