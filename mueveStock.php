@@ -105,6 +105,7 @@
                 }
             }
         ?>
+        <a href='listado.php' class='button returnButton'>Volver al listado</a>
     </main>
 </body>
 </html>
