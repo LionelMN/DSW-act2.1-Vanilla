@@ -69,12 +69,18 @@
                     $stockActual = $_POST['stockActual'];
                     $cantidad = $_POST['cantidad'];
                     $tiendaDestino = $_POST['selectTienda'];
+                    $selectedStock = $conecction->query(
+                        "SELECT unidades FROM stocks
+                        WHERE producto = $id AND tienda = $tiendaDestino"
+                    );
+                    $stock = $selectedStock->fetch(PDO::FETCH_OBJ);
+
                     try {
                         $conecction->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                         $conecction->beginTransaction();
                         $conecction->exec("UPDATE  stocks SET unidades = ($stockActual - $cantidad) WHERE producto = $id AND tienda = $tiendaActual");
                         if(comprobarStockTiendaDestino($tiendaDestino))
-                            $conecction->exec("UPDATE  stocks SET unidades = ($stockActual + $cantidad) WHERE producto = $id AND tienda = $tiendaDestino");
+                            $conecction->exec("UPDATE  stocks SET unidades = ($stock->unidades + $cantidad) WHERE producto = $id AND tienda = $tiendaDestino");
                         else{
                             $conecction->exec("INSERT INTO stocks (producto, tienda, unidades) VALUES ($id, $tiendaDestino, $cantidad)");
                         }
